@@ -1,0 +1,5 @@
+Lasku ID: 1
+Varaus ID: 1
+Laskun Summa: 100 €
+Lasku ALV: 24%
+Maksettutext: Erääntynyt

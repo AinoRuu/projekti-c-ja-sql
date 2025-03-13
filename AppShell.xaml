@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MokinVuokrausApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MokinVuokrausApp"
+    Shell.FlyoutBehavior="Locked"
+    Shell.TabBarIsVisible="False"
+    FlyoutWidth="300">
+
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout>
+            <Label Text="MökinVuokrausApp" HorizontalTextAlignment="Center"></Label>
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout>
+            <Label Text="Village Newbies" HorizontalTextAlignment="Center"></Label>
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
+
+    <ShellContent
+        Title="Tervetuloa"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <FlyoutItem Title="Muokkaa kohteita">
+        <ShellContent Title="Muokkaa kohteita" ContentTemplate="{DataTemplate local:EditPropertiesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Uusi vuokraus">
+    <ShellContent Title="Uusi vuokraus" ContentTemplate="{DataTemplate local:NewPropertyPage}" />
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Raportointi">
+    <ShellContent Title="Raportointi" ContentTemplate="{DataTemplate local:ReportPage}" />
+    </FlyoutItem>
+
+</Shell>

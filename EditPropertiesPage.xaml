@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MokinVuokrausApp.EditPropertiesPage"
+             Title="Hallinnoi kohteita">
+             
+
+    <!-- sivun layout horisontaaliseti-->
+   <HorizontalStackLayout>
+   <!--gridin määritys-->
+       <Grid>
+       <!--sarakkeiden määritys-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition> 
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--rivien määritys-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+                <!--mökkien tiedot-->
+                <Label Text = "Mökin tiedot"
+                        Margin = "7"
+                        Grid.Column="0"
+                        Grid.Row = "0"
+                        FontSize = "20" 
+                        HorizontalOptions = "Center"/>
+
+                <Entry x:Name="MokinNimi_kentta" 
+                        Margin = "10"
+                        Placeholder ="Mökin nimi" 
+                        Grid.Column="0" 
+                        Grid.Row="1"            
+                        />
+
+                        <Entry x:Name="Mokin_id_kentta" 
+                        Margin = "10"
+                        Placeholder ="Mökin ID" 
+                        Grid.Column="0" 
+                        Grid.Row="2"            
+                        />
+
+                        <Entry x:Name="MokinOsoite_kentta" 
+                        Margin = "10"
+                        Placeholder ="Mökin osoite" 
+                        Grid.Column="0" 
+                        Grid.Row="3"            
+                        />
+
+                        <Entry x:Name="Mokin_kuvaus" 
+                        Margin = "10"
+                        Placeholder ="Kuvaus" 
+                        Grid.Column="0" 
+                        Grid.Row="4"            
+                       />
+
+                        <Entry x:Name="Mokin_varustelu" 
+                        Margin = "10"
+                        Placeholder ="Varustelu" 
+                        Grid.Column="1" 
+                        Grid.Row="1"            
+                        />
+
+                        <Entry x:Name="Mokin_hinta" 
+                        Margin = "10"
+                        Placeholder ="hinta" 
+                        Grid.Column="1" 
+                        Grid.Row="2"            
+                        />
+
+                        <Entry x:Name="Mokin_henkilomaara" 
+                        Margin = "10"
+                        Placeholder ="henkilomaara" 
+                        Grid.Column="1" 
+                        Grid.Row="3"            
+                        />
+                        <Entry x:Name="Mokin_alue" 
+                        Margin = "10"
+                        Placeholder ="Alue" 
+                        Grid.Column="1" 
+                        Grid.Row="4"            
+                        />
+
+                <Entry x:Name="Mokin_postinumero" 
+                        Margin = "10"
+                        Placeholder ="Postinumero" 
+                        Grid.Column="1" 
+                        Grid.Row="5"            
+                        />
+
+                <Picker Title="Valitse palvelu"
+                        Margin = "5"
+                        Grid.Row = "2"
+                        Grid.Column = "3">
+                <Picker.Items>
+                        <x:String>safari</x:String>
+                        <x:String>joku</x:String>
+                        <x:String>mikälie</x:String>
+                </Picker.Items>
+                </Picker>
+
+                <Button  x:Name = "TallennaNappi"
+                Text="tallenna"
+                        Grid.Row = "1"
+                        Grid.Column="2"
+                        Clicked = "TallennaNappi_Clicked"
+                        />
+
+                <Button x:Name = "PoistaNappi"
+                Text="poista"
+                        Grid.Row = "2"
+                        Grid.Column="2"
+                        Clicked = "PoistaNappi_Clicked"/>
+
+                <Button x:Name = "TyhjennaNappi"
+                Text="tyhjennä"
+                        Grid.Row = "3"
+                        Grid.Column="2"
+                        Clicked = "TyhjennaNappi_Clicked"
+                        />  
+
+                        <Button x:Name = "JarjestaNappi"
+                         Text="Järjestä"
+                        Grid.Row = "6"
+                        Grid.Column="2"
+                        Clicked = "JarjestaNappi_Clicked"
+                        />    
+                                
+        
+<Border Stroke="LightGray"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 40,40,40,40"
+                Padding="16,16,16,16"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row = "7"
+                Grid.Column="0"
+                >
+        <!--Luettelo, jossa näkyy varauslista-->
+        <ListView x:name="PropertyList"
+        ItemSelected="PropertyList_ItemSelected"
+                    ItemsSource="{Binding Mokkit}"
+                    MinimumHeightRequest="400"
+                    Grid.Row = "7"
+                        Grid.Column="0"
+                        >
+        <!--Lisätään otsikot listalle-->
+        <ListView.Header>
+        <StackLayout Orientation="Horizontal" Spacing="10">
+        <Label Text="AlueID" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+            <Label Text="MokkiID" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150" />
+            <Label Text="Osoite" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+            <Label Text="Postinumero" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+            
+        </StackLayout>
+    </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Padding="10"
+                                Text="{Binding Alue.Alue_id}"
+                                TextColor="Black"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" />
+                        <Label Padding="10"
+                                Text="{Binding Mokki_id}"
+                                TextColor="Black"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" /> 
+                        <Label Padding="10"
+                                Text="{Binding Osoite}"
+                                TextColor="Black"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" />
+                        <Label Padding="10"
+                                Text="{Binding Posti.Postinumero}"
+                                TextColor="Black"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" />
+                        
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        </ListView>
+        </Border> 
+        </Grid>
+        </HorizontalStackLayout>
+</ContentPage>

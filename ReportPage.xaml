@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MokinVuokrausApp.ReportPage"
+             Title="Raportointi"
+             Shell.FlyoutBehavior="Locked">
+             
+
+    <StackLayout Orientation="Vertical" Padding="10" Spacing="10">
+        <Label Text="Raportointi" FontSize="30" HorizontalOptions="Center" />
+        <!--Lisätään napit, mistä voi valita luettelon järjestyksen-->
+        <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="CenterAndExpand">
+            <Button x:name="LaskuIDBtn" Text="Lasku ID" Clicked="LaskuIDButton_Clicked" BackgroundColor="LightGray" TextColor="Black" WidthRequest="150" />
+            <Button x:name="MaksettuBtn" Text="Erääntyneet" Clicked="MaksettuButton_Clicked" BackgroundColor="LightGray" TextColor="Black" WidthRequest="150" />
+        </StackLayout>
+    
+        <!--Lisätään reunukset raportille-->
+        <Border Stroke="LightGray"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 40,0,0,40"
+                Padding="16,16,16,16"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+        <!--Luettelo, johon tulostetaan raportti-->
+        <ListView x:name="LaskuList"
+                    ItemSelected="LaskuList_ItemSelected"
+                    ItemsSource="{Binding Lasku}"
+                    MinimumHeightRequest="400">
+        <!--Lisätään otsikot listalle-->
+        <ListView.Header>
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Label Text="Lasku ID" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150" />
+            <Label Text="Varaus" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+            <Label Text="Summa" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+            <Label Text="ALV" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+            <Label Text="Maksettu" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+        </StackLayout>
+    </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Padding="10"
+                                Text="{Binding Lasku_id}"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" /> 
+                        <Label Padding="10"
+                                Text="{Binding Varaus.Varaus_id}"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" />
+                        <Label Padding="10"
+                                Text="{Binding Summa}"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" />
+                        <Label Padding="10"
+                                Text="{Binding ALV}"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" />
+                        <Label Padding="10"
+                                Text="{Binding Maksettu}"
+                                FontSize="20"
+                                HorizontalOptions="StartAndExpand" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        </ListView>
+        </Border> 
+
+                <!--Laskun tiedot näihin ja tee PDF nappi-->
+        <StackLayout x:Name="SetLaskuVisible" IsVisible="{Binding IsLaskuVisible}" Orientation="Vertical" Padding="10" Spacing="10">
+        <Label Text="Tehdään lasku" x:Name="LaskuLabel" FontSize="30" HorizontalOptions="Center" />
+        <Button x:Name="ShowInvoice" Clicked="ShowInvoicebtn_Clicked" Text="Tarkastele laskua" BackgroundColor="LightGray" WidthRequest="150"/>
+        
+        </StackLayout>
+                    
+    </StackLayout>
+</ContentPage>

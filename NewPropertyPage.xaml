@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MokinVuokrausApp.NewPropertyPage"
+             Title="Uusi vuokraus">
+           
+    <!-- sivun layout horisontaaliseti-->
+   <HorizontalStackLayout>
+   <!--gridin määritys-->
+   
+       <Grid>
+       <!--gridin sarakkeiden määritys-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition> 
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--gridin rivejen määritys-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--labeloidaan asiakstiedot-->
+                <Label x:Name="asiakastext"
+                        Text = "Asiakas tiedot"
+                        Margin = "10"
+                        Grid.Column="0"
+                        Grid.Row = "0"
+                        FontSize = "20" 
+                        HorizontalOptions = "Center"/>
+                <!--mökkien tietojen labelointi-->
+                <Label  x:Name = "mokkitext" 
+                        Text = "Mökin tiedot"
+                        Margin = "7"
+                        Grid.Column="3"
+                        Grid.Row = "0"
+                        FontSize = "20" 
+                        HorizontalOptions = "Center"/>
+                <!--asiakstietojen entryt-->
+                <Entry x:Name="EtuNimi_kentta" 
+                        Margin = "10"
+                        Placeholder ="Etunimi" 
+                        Grid.Column="0" 
+                        Grid.Row="1"            
+                        HorizontalOptions = "FillAndExpand"/>
+
+                <Entry x:Name="SukuNimi_kentta" 
+                        Margin = "10"
+                        Placeholder ="Sukunimi" 
+                        Grid.Column="1" 
+                        Grid.Row="1"                
+                        HorizontalOptions = "FillAndExpand"/> 
+
+                <Entry x:Name="Osoite_kentta"
+                        Margin = "10" 
+                        Placeholder ="Lähiosoite" 
+                        Grid.Column="0" 
+                        Grid.Row="2"            
+                        HorizontalOptions = "FillAndExpand"/>
+
+                <Entry x:Name="Postinumero_kentta" 
+                        Margin = "10"
+                        Placeholder ="Postinumero" 
+                        Grid.Column="1" 
+                        Grid.Row="2"                
+                        HorizontalOptions = "FillAndExpand"/> 
+                
+                <Entry x:Name="Puhelinnumero_kentta" 
+                        Margin = "10"
+                        Placeholder ="Puhelinnumero" 
+                        Grid.Column="0" 
+                        Grid.Row="3"            
+                        HorizontalOptions = "FillAndExpand"/>
+
+                <Entry x:Name="Email_kentta" 
+                        Margin = "10"
+                        Placeholder ="Email" 
+                        Grid.Column="1" 
+                        Grid.Row="3"                
+                        HorizontalOptions = "FillAndExpand"/>
+                <!--mökkein picker elementit-->
+
+                <Picker x:Name="Aluepicker"
+                        Title="Valite alue" 
+                        Margin = "5"
+                        Grid.Row = "1"
+                        Grid.Column = "3"
+                        SelectedIndexChanged="Aluepicker_SelectedIndexChanged">
+                </Picker>
+
+                <Picker x:Name="Asiakaspicker"
+                        Title="Valite asiakas" 
+                        Margin = "5"
+                        Grid.Row = "4"
+                        Grid.Column = "0"
+                        SelectedIndexChanged="Asiakaspicker_SelectedIndexChanged">
+                        
+                </Picker>
+
+                <Picker Title="Valitse palvelu"
+                        Margin = "5"
+                        Grid.Row = "1"
+                        Grid.Column = "4">
+                <Picker.Items>
+                        <x:String>safari</x:String>
+                        <x:String>joku</x:String>
+                        <x:String>mikälie</x:String>
+                </Picker.Items>
+                </Picker>
+
+                <Picker x:Name ="mokkipicker"
+                        Title="Valite mökki"                   
+                        Grid.Row = "2"
+                        Grid.Column = "3"
+                        ItemsSource="{Binding Mokit}">                           
+                </Picker>
+
+                <!--Päivämäärien asetukseen datepickerit-->
+                <DatePicker x:Name = "alkupvm"
+                        Date="06/21/2022"               
+                        Margin = "5"
+                        Grid.Row = "3"
+                        Grid.Column = "3"/>
+                
+                <DatePicker x:Name = "loppupvm"
+                        Date="06/21/2022"               
+                        Margin = "5"
+                        Grid.Row = "3"
+                        Grid.Column = "4"/>
+
+                <Button x:Name="varaus_nappi"                      
+                        Text="tee varaus"
+                        Grid.Row = "4"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="2"
+                        Clicked="TeeVaraus_Clicked"/>
+
+                <Button x:Name="muokkaus_nappi"                      
+                        Text="Muokkaa"
+                        Grid.Row = "4"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="2"
+                        Clicked="muokkaa_nappi_Clicked"/>
+                        
+
+                <Button Text="tyhjennä"
+                        Grid.Row = "4"
+                        Grid.Column="1"
+                        Clicked="Tyhjenna_Clicked"/>    
+
+                
+                <Border Stroke="LightGray"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 40,40,40,40"
+                        Padding="16,16,16,16"
+                        HorizontalOptions="Center"
+                        Grid.Column = "0"
+                        Grid.ColumnSpan = "5"
+                        Grid.Row = "5"
+                        Margin = "15"
+                        VerticalOptions="Center">
+
+                        <!--Luettelo, jossa näkyy varauslista-->
+                        <ListView x:Name="RentingInfo"
+                                ItemSelected="NaytaValikko"               
+                                ItemsSource="{Binding Varaus}"
+                                MinimumHeightRequest="400">
+                                <!--Lisätään otsikot listalle-->
+                                <ListView.Header>
+                                        <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <Label Text="VarausID" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150" />
+                                        <Label Text="Asiakas" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+                                        <Label Text="Mökki" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+                                        <Label Text="Alkupvm" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+                                        <Label Text="Loppupvm" Padding="10" FontSize="20" HorizontalOptions="StartAndExpand" WidthRequest="150"/>
+                                        </StackLayout>
+                                </ListView.Header>
+                                <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                                <ViewCell>
+                                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                                        <Label Padding="10"
+                                                                Text="{Binding Varaus_id}"
+                                                                FontSize="20"
+                                                                HorizontalOptions="StartAndExpand" /> 
+                                                        <Label Padding="10"
+                                                                Text="{Binding Asiakas.Sukunimi}"
+                                                                FontSize="20"
+                                                                HorizontalOptions="StartAndExpand" />
+                                                        <Label Padding="10"
+                                                                Text="{Binding Mokki.Nimi}"
+                                                                FontSize="20"
+                                                                HorizontalOptions="StartAndExpand" />
+                                                        <Label Padding="10"
+                                                                Text="{Binding Varattu_AlkuPvm}"
+                                                                FontSize="20"
+                                                                HorizontalOptions="StartAndExpand" />
+                                                        <Label Padding="10"
+                                                                Text="{Binding Varattu_LoppuPvm}"
+                                                                FontSize="20"
+                                                                HorizontalOptions="StartAndExpand" />
+                                                </StackLayout>
+                                                </ViewCell>
+                                        </DataTemplate>
+                                </ListView.ItemTemplate>
+                        </ListView>
+                </Border>      
+        </Grid>
+    </HorizontalStackLayout>
+</ContentPage>
